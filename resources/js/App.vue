@@ -3,7 +3,6 @@
     <main class="main">
         <router-view></router-view>
     </main>
-    <p>Привет ASd</p>
 </template>
 
 <script lang="ts">

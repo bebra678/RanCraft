@@ -5,7 +5,22 @@
                 <router-link class="nav-link" aria-current="page" to="/" >Главная</router-link>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link" to="/donwload">Загрузка</router-link>
+                <router-link class="nav-link" to="/download">Загрузка</router-link>
+            </li>
+            <li class="nav-item">
+                <router-link class="nav-link" to="/admin">Админ Панель</router-link>
+            </li>
+            <li class="nav-item">
+                <router-link class="nav-link" to="/reg">Регистрация</router-link>
+            </li>
+            <li class="nav-item">
+                <router-link class="nav-link" to="/auth">Войти</router-link>
+            </li>
+            <li class="nav-item">
+                <router-link class="nav-link" to="/profile">Профиль</router-link>
+            </li>
+            <li class="nav-item">
+                <router-link class="nav-link" to="/donate">Донат</router-link>
             </li>
         </ul>
     </header>
