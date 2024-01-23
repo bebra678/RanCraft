@@ -8,6 +8,8 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import Header from "./components/Header.vue";
+import axios from "axios";
+
 
 export default defineComponent( {
     components: {
