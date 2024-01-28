@@ -1,7 +1,8 @@
 <template>
     <h1>Register</h1>
     <div class="w-25">
-        <input v-model="name" type="name" placeholder="name" class="form-control">
+        <input v-model="nick" type="text" placeholder="nick" class="form-control">
+        <input v-model="name" type="text" placeholder="name" class="form-control">
         <input v-model="email" type="email" placeholder="email" class="form-control">
         <input v-model="password" type="password" placeholder="password" class="form-control">
         <input v-model="password_confirmation" type="password" placeholder="password_confirmation" class="form-control">
@@ -20,6 +21,7 @@ export default defineComponent({
     },
     data() {
         return {
+            nick: null,
             name: null,
             email: null,
             password: null,
@@ -30,6 +32,7 @@ export default defineComponent({
         register() {
             axios.get('/sanctum/csrf-cookie').then(response => {
                 axios.post('/register', {
+                    nick: this.nick,
                     name: this.name,
                     email: this.email,
                     password: this.password,
