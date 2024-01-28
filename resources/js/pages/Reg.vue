@@ -6,6 +6,9 @@
         <input v-model="email" type="email" placeholder="email" class="form-control">
         <input v-model="password" type="password" placeholder="password" class="form-control">
         <input v-model="password_confirmation" type="password" placeholder="password_confirmation" class="form-control">
+
+<!--        <div id="html_element"></div>-->
+<!--        <Checkbox />-->
         <input @click.prevent="register" type="submit" value="register" class="btn btn-primary">
     </div>
 </template>
@@ -13,6 +16,8 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import axios from "axios";
+// import { useRecaptchaProvider } from 'vue-recaptcha';
+// useRecaptchaProvider();
 
 export default defineComponent({
     components: {},
@@ -27,6 +32,26 @@ export default defineComponent({
             password: null,
             password_confirmation: null,
         }
+    },
+    mounted() {
+      //   const s = document.createElement("script");
+      //   s.innerHTML = `var onloadCallback = function() {
+      //   grecaptcha.render('html_element', {
+      //     'sitekey' : 'your_site_key'
+      //   });
+      // };`;
+      //   document.body.appendChild(s);
+      //   const s1 = document.createElement("script");
+      //   s.innerHTML = `src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+      //   async defer>`;
+      //   document.body.appendChild(s1);
+      //   const s3 = document.createElement("script");
+      //   s.innerHTML = `
+      //  (function(w,d,u){
+      //      console.log(123)
+      //  })();
+      // `;
+      //   document.body.appendChild(s3);
     },
     methods: {
         register() {

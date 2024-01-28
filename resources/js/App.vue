@@ -9,6 +9,8 @@
 import {defineComponent} from "vue";
 import Header from "./components/Header.vue";
 import axios from "axios";
+// import { useRecaptchaProvider } from 'vue-recaptcha';
+// useRecaptchaProvider();
 
 
 export default defineComponent( {
