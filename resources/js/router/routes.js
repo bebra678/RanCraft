@@ -48,6 +48,10 @@ const routes = [
         component: Personal,
         name: 'personal'
     },
+    {
+        path: '/vk/auth',
+        name: 'vk_auth'
+    },
 ]
 
 export default routes;

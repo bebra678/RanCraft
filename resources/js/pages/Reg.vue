@@ -11,6 +11,7 @@
 <!--        <Checkbox />-->
         <input @click.prevent="register" type="submit" value="register" class="btn btn-primary">
     </div>
+    <a href="http://localhost:8000/vk/auth">Регистрация через VK</a>
 </template>
 
 <script lang="ts">
