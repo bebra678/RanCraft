@@ -15,6 +15,6 @@ Route::apiResources(['/users' => UserController::class,]);
 Route::get('vk/auth', [SocialController::class, 'index']);
 Route::get('vk/auth/callback', [SocialController::class, 'callbackvk']);
 
-Route::group(['middleware' => ['auth:sanctum']], function (){
+Route::group(['middleware' => ['auth:sanctum','admin']], function (){
     Route::apiResources(['/posts' => PostsController::class,]);
 });

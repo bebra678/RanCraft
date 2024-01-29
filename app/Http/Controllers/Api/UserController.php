@@ -23,7 +23,10 @@ class UserController extends Controller
     }
     public function update(Request $request, string $id)
     {
-        //
+        $product = User::findOrFail($id);
+        $product->fill($request->except(['id']));
+        $product->save();
+        return response()->json($product);
     }
     public function destroy(string $id)
     {
