@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Http\Response;
+use App\Http\Requests\StoreUserRequest;
 
 class UserController extends Controller
 {
@@ -21,7 +22,7 @@ class UserController extends Controller
     {
         return User::findOrFail($id);
     }
-    public function update(Request $request, string $id)
+    public function update(StoreUserRequest $request, string $id)
     {
         $product = User::findOrFail($id);
         $product->fill($request->except(['id']));

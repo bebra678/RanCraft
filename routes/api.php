@@ -5,12 +5,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Social\SocialController;
+use App\Http\Controllers\Api\DonateController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::apiResources(['/users' => UserController::class,]);
+
+Route::apiResources(['/donate' => DonateController::class,]);
 
 Route::get('vk/auth', [SocialController::class, 'index']);
 Route::get('vk/auth/callback', [SocialController::class, 'callbackvk']);
