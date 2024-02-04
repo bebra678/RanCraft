@@ -30,6 +30,7 @@ class StoreUserRequest extends FormRequest
 //            'g-recaptcha-response' => ['required', 'captcha'],
             'tg' => ['nullable', 'max:255'],
             'vk' => ['nullable', 'max:255'],
+            'photo' => ['nullable', 'file', 'mimes:jpg,png'],
         ];
     }
     public function messages()
@@ -58,6 +59,10 @@ class StoreUserRequest extends FormRequest
                 'required' => 'Поле Password не заполнено',
                 'max' => 'Password должен быть не больше 100 символов',
                 'min' => 'Password должен быть не меньше 8 символов',
+            ],
+            'photo' => [
+                'file' => 'Ошибка с файлом изображения',
+                'mimes' => 'Формат файла изображения должен быть: .jpg .png',
             ],
         ];
     }

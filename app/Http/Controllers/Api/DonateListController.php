@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\DonateList;
 use Illuminate\Http\Response;
 use App\Http\Requests\StoreDonateListRequest;
+use Illuminate\Support\Facades\Storage;
 
 class DonateListController extends Controller
 {
@@ -18,7 +19,13 @@ class DonateListController extends Controller
 
     public function store(StoreDonateRequest $request)
     {
-        $data = DonateList::Create($request->validated());
+        //$data = DonateList::Create($request->validated());
+        $data = $request->validated();
+        if($data['photo'])
+        {
+            $data['photo'] = Storage::put('/images', $data['photo']);
+        }
+        DonateList::firstOrCreate($data);
         return $data;
     }
 

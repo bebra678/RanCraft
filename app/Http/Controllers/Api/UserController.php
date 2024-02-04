@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Http\Response;
 use App\Http\Requests\StoreUserRequest;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -22,12 +23,17 @@ class UserController extends Controller
     {
         return User::findOrFail($id);
     }
+
     public function update(StoreUserRequest $request, string $id)
     {
-        $product = User::findOrFail($id);
-        $product->fill($request->except(['id']));
-        $product->save();
-        return response()->json($product);
+        $data = User::findOrFail($id);
+        $data->fill($request->except(['id']));
+        if($request['photo'])
+        {
+            $data['photo'] = Storage::put('/images', $request['photo']);
+        }
+        $data->save();
+        return response()->json($data);
     }
     public function destroy(string $id)
     {
