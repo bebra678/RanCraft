@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Donate;
 use Illuminate\Http\Response;
 use App\Http\Requests\StoreDonateRequest;
+use App\Models\DonateList;
 
 class DonateController extends Controller
 {
@@ -17,6 +18,18 @@ class DonateController extends Controller
 
     public function store(StoreDonateRequest $request)
     {
+//        $data = $request->all();
+//        $donate = DonateList::findOrFail($data['donate']);
+//        if($donate)
+//        {
+//            $data['donate'] = $donate['name'];
+//            $res = Donate::Create($data->validated());
+//            return $res;
+//        }
+//        else
+//        {
+//            return response('Ошибка', 402);
+//        }
         $data = Donate::Create($request->validated());
         return $data;
     }

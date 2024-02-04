@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Social\SocialController;
 use App\Http\Controllers\Api\DonateController;
+use App\Http\Controllers\Api\DonateListController;
+use App\Models\DonateList;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -13,11 +15,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResources(['/users' => UserController::class,]);
 
-Route::apiResources(['/donate' => DonateController::class,]);
+Route::get('/donate', function () {
+    return DonateList::all();
+});
+Route::apiResources(['/admin/donate/applications' => DonateController::class,]);
+Route::apiResources(['/admin/donate' => DonateListController::class,]);
 
 Route::get('vk/auth', [SocialController::class, 'index']);
 Route::get('vk/auth/callback', [SocialController::class, 'callbackvk']);
 
 Route::group(['middleware' => ['auth:sanctum','admin']], function (){
-    Route::apiResources(['/posts' => PostsController::class,]);
+
 });
+Route::apiResources(['/posts' => PostsController::class,]);
