@@ -28,5 +28,14 @@ Route::get('vk/auth/callback', [SocialController::class, 'callbackvk']);
 Route::group(['middleware' => ['auth:sanctum', 'admin']], function (){
 
 });
-Route::apiResources(['/posts' => PostsController::class,]);
+
+Route::group(['middleware' => 'forbid-banned-user'], function () {
+    Route::apiResources(['/posts' => PostsController::class,]);
+});
+
+Route::apiResources(['/ban' => BanController::class,]);
+
+Route::post('/add_ban', [BanController::class, 'ban']);
+
+
 

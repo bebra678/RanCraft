@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Carbon\Carbon;
+use Cog\Contracts\Ban\Bannable as BannableInterface;
+use Cog\Laravel\Ban\Traits\Bannable;
 //implements MustVerifyEmail
-class User extends Authenticatable //implements MustVerifyEmail
+class User extends Authenticatable implements BannableInterface
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Bannable;
 
     /**
      * The attributes that are mass assignable.
@@ -26,8 +29,10 @@ class User extends Authenticatable //implements MustVerifyEmail
         'tg',
         'vk',
         'photo',
-        'ban_start',
-        'ban_end',
+        'banned_until',
+        'banned_at',
+//        'ban_start',
+//        'ban_end',
     ];
 
     /**
@@ -48,6 +53,10 @@ class User extends Authenticatable //implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+    ];
+
+    protected $dates = [
+        'banned_until'
     ];
 
     public static function getRole()

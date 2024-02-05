@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
+//    public function __construct()
+//    {
+//        $this->middleware('admin')->except('index', 'show');
+//    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth');
+//    }
+
     public function index()
     {
         return PostResource::collection(Post::all());
