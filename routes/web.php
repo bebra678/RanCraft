@@ -5,13 +5,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PostsController;
 
-Route::group(['middleware' => 'forbid-banned-user'], function () {
+Route::group(['middleware' => 'ban'], function () { //forbid-banned-user
 
 });
+Route::get('{any?}', fn() => view('index'))->where('any', '^(?!ban).*$'); //.*
 
-Route::get('{any?}', fn() => view('index'))->where('any', '.*');
+Route::get('/ban/info', fn() => view('ban'))->name('ban');
+
+
+//Route::get('{any?}', fn() => view('index'))->where('any', '.*'); //.*
 
 Auth::routes();
+
 
 //Auth::routes(['verify' => true]);
 

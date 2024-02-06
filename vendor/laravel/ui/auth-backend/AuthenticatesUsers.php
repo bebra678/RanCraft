@@ -2,6 +2,7 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use Cog\Contracts\Ban\Bannable as BannableContract;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,9 @@ trait AuthenticatesUsers
     public function login(Request $request)
     {
         $this->validateLogin($request);
+        $user = $this->guard()->getProvider()->retrieveByCredentials($this->credentials($request));
+
+
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
@@ -41,6 +45,10 @@ trait AuthenticatesUsers
             $this->fireLockoutEvent($request);
 
             return $this->sendLockoutResponse($request);
+        }
+
+        if ($user && $user->isBanned()) {
+            $this->sendFailedLoginResponse($request, 'Ваш аккаунт заблокирован. Пожалуйста, свяжитесь с администратором.');
         }
 
         if ($this->attemptLogin($request)) {
@@ -129,7 +137,26 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        //
+//        if ($user->isBanned()) {
+////            Auth::logout();
+////            $err = 'Ошибка';
+////            return redirect('/ban/info')->with('error', 'Ваш аккаунт забанен!')->withErrors($err);
+//            $this->guard()->logout();
+//
+//            $request->session()->invalidate();
+//
+//            $request->session()->regenerateToken();
+//
+//            if ($response = $this->loggedOut($request)) {
+//                return $response;
+//            }
+//
+//            return $request->wantsJson()
+//                ? new JsonResponse([], 204)
+//                : redirect('/');
+//        }
+//
+//        return redirect()->intended($this->redirectPath());
     }
 
     /**
