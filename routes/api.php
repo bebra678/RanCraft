@@ -25,13 +25,16 @@ Route::apiResources(['/admin/donate' => DonateListController::class,]);
 Route::get('vk/auth', [SocialController::class, 'index']);
 Route::get('vk/auth/callback', [SocialController::class, 'callbackvk']);
 
+Route::group(['middleware' => 'forbid-banned-user'], function () {
+
+});
 Route::group(['middleware' => ['auth:sanctum', 'admin']], function (){
 
 });
 
-Route::group(['middleware' => 'forbid-banned-user'], function () {
-    Route::apiResources(['/posts' => PostsController::class,]);
-});
+
+
+Route::apiResources(['/posts' => PostsController::class,]);
 
 Route::apiResources(['/ban' => BanController::class,]);
 
