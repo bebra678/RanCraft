@@ -6,6 +6,7 @@ import Donate from "../pages/Donate.vue";
 import Reg from "../pages/Reg.vue";
 import Profile from "../pages/Profile.vue";
 import Personal from "../components/Personal.vue";
+import Post from "../components/Post.vue";
 
 const routes = [
     {
@@ -47,6 +48,11 @@ const routes = [
         path: '/personal',
         component: Personal,
         name: 'personal'
+    },
+    {
+        path: '/post/:id',
+        name: 'post',
+        component: Post,
     },
     {
         path: '/vk/auth',
