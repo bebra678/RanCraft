@@ -28,7 +28,7 @@ class StorePostRequest extends FormRequest
                 return $rules;
             case 'PUT':
                 return [
-                    'title' => ['required', 'max:30', 'min:3', Rule::unique('posts')->ignore($this->title, 'title')],
+                    'title' => ['required', 'max:30', 'min:3'], //Rule::unique('posts')->ignore($this->title, 'title')
                     'text' => ['required', 'max:255', 'min:3'],
                     'photo' => ['required', 'file', 'mimes:jpg,png'],
                 ];
@@ -42,7 +42,6 @@ class StorePostRequest extends FormRequest
                 'required' => 'Поле title не должно быть пустым',
                 'max' => 'Максимально допустимое значение в поле title: 30',
                 'min' => 'Минимальное допустимое значение в поле title: 3',
-                'unique' => 'Поле title должно быть уникальным',
             ],
             'text' => [
                 'required' => 'Поле text не должно быть пустым',

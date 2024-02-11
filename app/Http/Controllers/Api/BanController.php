@@ -6,49 +6,40 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Carbon\Carbon;
+use App\Http\Requests\BanRequest;
 
 class BanController extends Controller
 {
     public function index()
     {
         return $users = User::onlyBanned()->get();
-        //return $data = User::where('ban', 'IS NOT', null)->get();
-    }
-    public function store(Request $request)
-    {
-        //
-    }
-    public function show(string $id)
-    {
-        //
-    }
-    public function update(Request $request, string $id)
-    {
-//        $data = User::findOrFail($id);
-//        $data->fill($request->except(['id']));
-//        $data['ban_start'] = Carbon::now();;
-//        $data['ban_end'] = $request['ban_end'];
-//        $data->save();
-//        return response()->json($data);
-    }
-    public function destroy(string $id)
-    {
-        //
     }
 
-    public function ban(Request $request)
+    public function setBan(BanRequest $request, string $id)
     {
-        $input = $request->all();
-
-        if(!empty($input['id']))
+        $request->validated();
+        $user = User::findOrFail($id);
+        if(!$request['expired_at'])
         {
-            $user = User::findOrFail($input['id']);
-            $user->ban()->create([
-                'expired_at' => '2030-03-28 00:00:00',
-                'comment' => $request->baninfo,
+            $user->ban([
+                'expired_at' => '2038-01-01 00:00:00',
+                'comment' => $request['comment'],
             ]);
         }
-        $data = User::find($input['id']);
-        return $data;
+        else
+        {
+            $user->ban([
+                'expired_at' => $request['expired_at'],
+                'comment' => $request['comment'],
+            ]);
+        }
+        return $data = User::find($id);
+    }
+
+    public function unBan(Request $request, string $id)
+    {
+        $user = User::findOrFail($id);
+        $user->unban();
+        return $data = User::find($id);
     }
 }

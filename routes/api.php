@@ -32,13 +32,12 @@ Route::group(['middleware' => ['auth:sanctum', 'admin']], function (){
 
 });
 
-
-
 Route::apiResources(['/posts' => PostsController::class,]);
 
-Route::apiResources(['/ban' => BanController::class,]);
+Route::get('/bans', [BanController::class, 'index']);
 
-Route::post('/add_ban', [BanController::class, 'ban']);
+Route::post('/setban/{id}', [BanController::class, 'setBan']);
+Route::post('/unban/{id}', [BanController::class, 'unBan']);
 
 
 
