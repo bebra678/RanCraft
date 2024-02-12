@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 trait AuthenticatesUsers
 {
     use RedirectsUsers, ThrottlesLogins;
-
+    public $username = null;
     /**
      * Show the application's login form.
      *
@@ -77,10 +77,27 @@ trait AuthenticatesUsers
      */
     protected function validateLogin(Request $request)
     {
-        $request->validate([
-            $this->username() => 'required|string',
-            'password' => 'required|string',
-        ]);
+        if($request['nick'] && !$request['email'])
+        {
+            $request->validate([
+                'nick' => 'required|string',
+                'password' => 'required|string',
+            ]);
+        }
+        else
+        {
+            $request->validate([
+                'email' => 'required|string',
+                'password' => 'required|string',
+            ]);
+        }
+
+        /*
+         $request->validate([
+                $this->username() => 'required|string',
+                'password' => 'required|string',
+            ]);
+         */
     }
 
     /**
@@ -181,8 +198,14 @@ trait AuthenticatesUsers
      */
     public function username()
     {
-        //return 'email';
-        return 'nick';
+        if(request()->input('nick'))
+        {
+            return 'nick';
+        }
+        else
+        {
+            return 'email';
+        }
     }
 
     /**
