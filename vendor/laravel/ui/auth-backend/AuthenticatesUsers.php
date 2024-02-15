@@ -91,13 +91,6 @@ trait AuthenticatesUsers
                 'password' => 'required|string',
             ]);
         }
-
-        /*
-         $request->validate([
-                $this->username() => 'required|string',
-                'password' => 'required|string',
-            ]);
-         */
     }
 
     /**
@@ -154,26 +147,7 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-//        if ($user->isBanned()) {
-////            Auth::logout();
-////            $err = 'Ошибка';
-////            return redirect('/ban/info')->with('error', 'Ваш аккаунт забанен!')->withErrors($err);
-//            $this->guard()->logout();
-//
-//            $request->session()->invalidate();
-//
-//            $request->session()->regenerateToken();
-//
-//            if ($response = $this->loggedOut($request)) {
-//                return $response;
-//            }
-//
-//            return $request->wantsJson()
-//                ? new JsonResponse([], 204)
-//                : redirect('/');
-//        }
-//
-//        return redirect()->intended($this->redirectPath());
+        //
     }
 
     /**

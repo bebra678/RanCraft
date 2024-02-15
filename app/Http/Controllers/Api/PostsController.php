@@ -10,6 +10,7 @@ use http\Message;
 use App\Http\Resources\PostResource;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Comment;
 
 class PostsController extends Controller
 {
@@ -38,7 +39,13 @@ class PostsController extends Controller
 
     public function show(string $id)
     {
-        return new PostResource(Post::findOrFail($id));
+        $post = Post::findOrFail($id);
+        $comments = Comment::where('post_id', $id)->get();
+        //return $data = [$post, $comments];
+        return response()->json([
+            'post' => $post,
+            'comments' => $comments
+        ]);
     }
 
     public function update(StorePostRequest $request, string $id)

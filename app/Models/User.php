@@ -21,6 +21,7 @@ class User extends Authenticatable implements BannableInterface
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'nick',
         'name',
         'email',
@@ -56,10 +57,10 @@ class User extends Authenticatable implements BannableInterface
     ];
 
 //    protected $dates = [
-//        'banned_until'
+//        'role'
 //    ];
 
-    public function getRole()
+    protected function getRole()
     {
         return $this->role;
     }
