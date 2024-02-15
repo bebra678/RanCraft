@@ -16,7 +16,7 @@ class StoreDonateRequest extends FormRequest
         return [
             'user_id' => ['required', 'integer', 'max:11', 'min:1'],
             'nick' => ['required', 'string', 'regex:/^[a-zA-Z0-9_]+$/i', 'max:30', 'min:3'],
-            'donate' => ['required', 'string', 'max:11', 'min:1'],
+            'donate' => ['required', 'integer', 'max:11'],
             'type_payment' => ['required', 'string', 'max:255', 'min:3'],
         ];
     }

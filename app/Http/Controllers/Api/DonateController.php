@@ -18,19 +18,13 @@ class DonateController extends Controller
 
     public function store(StoreDonateRequest $request)
     {
-//        $data = $request->all();
-//        $donate = DonateList::findOrFail($data['donate']);
-//        if($donate)
-//        {
-//            $data['donate'] = $donate['name'];
-//            $res = Donate::Create($data->validated());
-//            return $res;
-//        }
-//        else
-//        {
-//            return response('Ошибка', 402);
-//        }
-        $data = Donate::Create($request->validated());
+        $data = $request->validated();
+        //$data = Donate::Create($request->validated());
+        $donate = DonateList::where('id', $data['donate'])->first();
+        $data['donate'] = $donate['name'];
+        Donate::firstOrCreate($data);
+        $message = 'Игрок'.' '.$data['nick'].' сделал запрос на донат:'.' '.$data['donate'].'.'.'Цена: '.$donate['price'].' .'.'Тип оплаты: '.$data['type_payment'];
+        file_get_contents('https://api.telegram.org/bot6617492895:AAEjVeXMghllC0_E_EUxoF7JaZyFJeOJCxM/sendMessage?chat_id=-1002042695958&text='.$message);
         return $data;
     }
 

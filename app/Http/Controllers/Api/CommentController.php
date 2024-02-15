@@ -23,8 +23,8 @@ class CommentController extends Controller
 //        $id = $user->id;
 //        $data['user_id'] = $id;
       $data['user_id'] = auth()->user()->id;
-        Comment::firstOrCreate($data);
-        return $data;
+      Comment::firstOrCreate($data);
+      return $data;
     }
 
     public function show(string $id)
