@@ -132,7 +132,7 @@ export default defineComponent({
 }
 
 .reg-label input {
-    width: 80%;
+    width: 70%;
     background-color: #E9F1FA;
     border-radius: 26.5px;
     font-weight: 500;

@@ -1,12 +1,12 @@
 import Home from "../pages/Home.vue";
 import Download from "../pages/Download.vue";
 import Admin from "../pages/Admin.vue";
-import Auth from "../pages/Auth.vue";
 import Donate from "../pages/Donate.vue";
 import Reg from "../pages/Reg.vue";
 import Profile from "../pages/Profile.vue";
 import Personal from "../components/Personal.vue";
 import Post from "../components/Post.vue";
+import ChangePass from "../components/ChangePass.vue";
 
 const routes = [
     {
@@ -18,11 +18,6 @@ const routes = [
         path: '/admin',
         component: Admin,
         name: 'admin'
-    },
-    {
-        path: '/auth',
-        component: Auth,
-        name: 'login'
     },
     {
         path: '/donate',
@@ -53,6 +48,11 @@ const routes = [
         path: '/post/:id',
         name: 'post',
         component: Post,
+    },
+    {
+        path: '/change-password',
+        name: 'change-password',
+        component: ChangePass,
     },
     {
         path: '/vk/auth',

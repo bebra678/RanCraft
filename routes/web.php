@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\PostsController;
 Route::group(['middleware' => 'ban'], function () { //forbid-banned-user
 
 });
-Route::get('{any?}', fn() => view('index'))->where('any', '^(?!ban).*$'); //.*
+Route::get('{any?}', fn() => view('index'))->where('any', '^(?!api).*$'); //.*
 
 Route::get('/ban/info', fn() => view('ban'))->name('ban');
 

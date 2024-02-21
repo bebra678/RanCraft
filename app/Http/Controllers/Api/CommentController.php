@@ -11,6 +11,10 @@ use Illuminate\Http\Response;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin')->except('store');
+    }
     public function index()
     {
         return $data = Comment::all();

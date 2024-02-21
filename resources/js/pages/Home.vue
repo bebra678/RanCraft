@@ -3,20 +3,19 @@
         <h1 class="title">НОВОСТИ</h1>
         <ul class="news-list">
             <li class="news-list__item" v-for="(post, index) in visiblePosts" :key="post.id" :data-id="post.id">
-<!--                <img class="news-list__photo" v-if="post.photo" :src="'../../../storage/' + post.photo" alt="Изображение">-->
-                <div class="news-list__photo"></div>
+<!--                <img class="news-list__photo" v-if="post.photo" :src="baseUrl + post.photo" alt="Изображение">-->
+                <img class="news-list__photo" v-if="post.photo" :src="baseUrl + post.photo" alt="Изображение">
 
 
                 <div class="news-list__item-wrapper">
                     <div class="news-list__item-text">
                         <h3 class="news-list__title">{{ post.title }}</h3>
                         <p class="news-list__date">
-                            <img class="news-list__photo" v-if="post.photo" :src="'../../../storage/' + post.photo" alt="Изображение">
-<!--                            <img src="../../img/news/news-date.svg" alt="" width="17" height="17">-->
+<!--                            <img src="../../img/" alt="" width="17" height="17">-->
                             {{ new Date(post.created_at).toLocaleString() }}
                         </p>
                     </div>
-                    <router-link class="news-list__btn" to="/reg">ПОДРОБНЕЕ</router-link>
+                    <router-link class="news-list__btn" :to="'/post/' + post.id">ПОДРОБНЕЕ</router-link>
                 </div>
             </li>
         </ul>
@@ -34,6 +33,7 @@ export default defineComponent({
             posts: [],
             maxPostsToShow: 3, // предельное количество отображаемых постов
             visiblePostCount: 3, // количество отображаемых постов
+            baseUrl: '../../../public/img/post/r5fFrRXyXsfjucqJZRhT5xnqmWhAQUlZlqVywahB.jpg',
         };
     },
     async created() {
@@ -140,5 +140,6 @@ export default defineComponent({
 
 .news__btn-more {
     margin-top: 25px;
+    text-decoration: none;
 }
 </style>

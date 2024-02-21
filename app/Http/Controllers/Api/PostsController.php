@@ -9,15 +9,16 @@ use App\Http\Requests\StorePostRequest;
 use http\Message;
 use App\Http\Resources\PostResource;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Comment;
 
 class PostsController extends Controller
 {
-//    public function __construct()
-//    {
-//        $this->middleware('admin')->except('index', 'show');
-//    }
+    public function __construct()
+    {
+        $this->middleware('admin')->except('index', 'show');
+    }
 //    public function __construct()
 //    {
 //        $this->middleware('auth');
@@ -31,7 +32,7 @@ class PostsController extends Controller
     public function store(StorePostRequest $request)
     {
         $data = $request->validated();
-        $data['photo'] = Storage::put('/images', $data['photo']);
+        $data['photo'] = Storage::disk('storage')->put('/post', $data['photo']);
         //$post = Post::Create($request->validated());
         Post::firstOrCreate($data);
         return $data;
@@ -52,7 +53,7 @@ class PostsController extends Controller
     {
         $data = Post::findOrFail($id);
         $data->fill($request->except(['id']));
-        $data['photo'] = Storage::put('/images', $request['photo']);
+        $data['photo'] = Storage::disk('storage')->put('/post', $request['photo']);
         $data->save();
         return response()->json($data);
     }

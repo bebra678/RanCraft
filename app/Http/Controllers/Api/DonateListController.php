@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Storage;
 
 class DonateListController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin')->except('index', 'show');
+    }
     public function index()
     {
         return DonateList::all();

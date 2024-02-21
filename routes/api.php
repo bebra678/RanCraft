@@ -41,6 +41,11 @@ Route::group(['middleware' => 'forbid-banned-user'], function () {
 
 });
 
+//Route::get('/id', function (Request $request) {
+//    $userId = Auth::id();
+//    return response()->json(['user_id' => $userId]);
+//});
+
 
 
 

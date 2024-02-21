@@ -17,7 +17,7 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'title' => ['required', 'unique:posts', 'max:30', 'min:3'],
+            'title' => ['required', 'max:30', 'min:3'],
             'text' => ['required', 'max:255', 'min:3'],
             'photo' => ['required', 'file', 'mimes:jpg,png'],
         ];

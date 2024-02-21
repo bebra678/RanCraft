@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Http\Response;
 use App\Http\Requests\StoreUserRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpdateAvatarRequest;
 
 class UserController extends Controller
 {
@@ -30,7 +32,7 @@ class UserController extends Controller
         $data->fill($request->except(['id']));
         if($request['photo'])
         {
-            $data['photo'] = Storage::put('/images', $request['photo']);
+            $data['photo'] = Storage::disk('storage')->put('/avatar', $request['photo']);
         }
         $data->save();
         return response()->json($data);
@@ -40,5 +42,10 @@ class UserController extends Controller
         $data = User::findOrFail($id);
         $data->delete();
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function updateSkin(Request $request)
+    {
+        //
     }
 }

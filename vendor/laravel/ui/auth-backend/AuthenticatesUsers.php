@@ -48,7 +48,7 @@ trait AuthenticatesUsers
         }
 
         if ($user && $user->isBanned()) {
-            $this->sendFailedLoginResponse($request, 'Ваш аккаунт заблокирован. Пожалуйста, свяжитесь с администратором.');
+            $this->sendFailedBanResponse($request);
         }
 
         if ($this->attemptLogin($request)) {
@@ -80,15 +80,23 @@ trait AuthenticatesUsers
         if($request['nick'] && !$request['email'])
         {
             $request->validate([
-                'nick' => 'required|string',
+                'nick' => 'required|exists:users,' . $this->username(),
                 'password' => 'required|string',
-            ]);
+            ], [
+                $this->username() . '.exists' => 'Такого ника не существует',
+                'nick.required' => 'Для авторизации введите ник',
+                'password.required' => 'Для авторизации введите пароль',
+        ]);
         }
         else
         {
             $request->validate([
-                'email' => 'required|string',
+                'email' => 'required|exists:users,' . $this->username(),
                 'password' => 'required|string',
+            ], [
+                $this->username() . '.exists' => 'Такого email не существует',
+                'email.required' => 'Для авторизации введите email',
+                'password.required' => 'Для авторизации введите пароль',
             ]);
         }
     }
@@ -160,9 +168,26 @@ trait AuthenticatesUsers
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        throw ValidationException::withMessages([
-            $this->username() => [trans('auth.failed')],
-        ]);
+//        throw ValidationException::withMessages([
+//            $this->username() => [trans('auth.failed')],
+//        ]);
+        $errors = ['err' => 'Ошибка авторизации'];
+
+        if (!User::where($this->username(), $request->{$this->username()})->exists()) {
+            $errors = ['login' => ['Логин не найден']];
+        }
+
+        if (!Auth::attempt($request->only($this->username(), 'password'))) {
+            $errors = ['password' => ['Неправильный пароль']];
+        }
+
+        throw ValidationException::withMessages($errors);
+    }
+
+    protected function sendFailedBanResponse(Request $request)
+    {
+        $errors = ['ban' => ['Ваш аккаунт заблокирован. Пожалуйста, свяжитесь с администратором']];
+        throw ValidationException::withMessages($errors);
     }
 
     /**

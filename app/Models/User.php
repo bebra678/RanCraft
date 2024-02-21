@@ -56,12 +56,17 @@ class User extends Authenticatable implements BannableInterface
         'password' => 'hashed',
     ];
 
-//    protected $dates = [
-//        'role'
-//    ];
+    protected $dates = [
+        'role'
+    ];
 
     protected function getRole()
     {
         return $this->role;
+    }
+
+    protected function getId()
+    {
+        return $this->id;
     }
 }
