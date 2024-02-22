@@ -18,8 +18,7 @@
 <body>
     <div id="app">
     </div>
-
-
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
 
 

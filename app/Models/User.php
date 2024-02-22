@@ -57,7 +57,8 @@ class User extends Authenticatable implements BannableInterface
     ];
 
     protected $dates = [
-        'role'
+        'role',
+        'id',
     ];
 
     protected function getRole()

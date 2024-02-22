@@ -6,7 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
-class AdminMiddleware
+
+class CheckUserMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,11 +16,9 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = $request->user();
-        $role = $user->role;
-        if($role < 2)
-        {
-            abort(403, 'У вас нет доступа');
+        $userId = $request->route('id');
+        if ($userId != Auth::id()) {
+            return response()->json(['message' => 'У вас нет доступа'], 403);
         }
         return $next($request);
     }

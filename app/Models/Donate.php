@@ -13,5 +13,6 @@ class Donate extends Model
         'nick',
         'donate',
         'type_payment',
+        'contact',
     ];
 }

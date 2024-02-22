@@ -18,7 +18,7 @@
 <body>
     <div id="app">
     </div>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 {{--    <script src="https://unpkg.com/vue-recaptcha@latest/dist/vue-recaptcha.min.js"></script>--}}
 {{--    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"--}}
 {{--            async defer>--}}

@@ -16,22 +16,29 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::get('/donate', function () {
     return DonateList::all();
 });
 
 Route::apiResources(['/posts' => PostsController::class,]);
 
+Route::group(['middleware' => 'auth:sanctum'], function (){
+    Route::group(['middleware' => 'check.user'], function (){
+        Route::post('/change/password/{id}', [UserController::class, 'changePassword']);
+        Route::post('/change/img/{id}', [UserController::class, 'updateSkin']);
+        Route::post('/create/comment/{id}', [CommentController::class, 'createComment']);
+        Route::post('/create/application/{id}', [DonateController::class, 'createApplication']);
+    });
+});
+
 Route::apiResources(['/comments' => CommentController::class,]);
 
-Route::get('/vk/auth', [SocialController::class, 'index']);
-Route::get('/vk/auth/callback', [SocialController::class, 'callbackvk']);
-
 Route::group(['middleware' => 'admin'], function (){
-
+    Route::get('/bans', [BanController::class, 'index']);
 });
 Route::apiResources(['/users' => UserController::class,]);
-Route::get('/bans', [BanController::class, 'index']);
+
 Route::post('/setban/{id}', [BanController::class, 'setBan']);
 Route::post('/unban/{id}', [BanController::class, 'unBan']);
 Route::apiResources(['/admin/donate/applications' => DonateController::class,]);

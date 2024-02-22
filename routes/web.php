@@ -12,6 +12,9 @@ Route::get('{any?}', fn() => view('index'))->where('any', '^(?!api).*$'); //.*
 
 Route::get('/ban/info', fn() => view('ban'))->name('ban');
 
+Route::get('/api/vk/auth', [SocialController::class, 'index']);
+Route::get('/api/vk/auth/callback', [SocialController::class, 'callbackvk']);
+
 
 //Route::get('{any?}', fn() => view('index'))->where('any', '.*'); //.*
 

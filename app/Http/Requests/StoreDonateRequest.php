@@ -14,10 +14,11 @@ class StoreDonateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'integer', 'max:11', 'min:1'],
-            'nick' => ['required', 'string', 'regex:/^[a-zA-Z0-9_]+$/i', 'max:30', 'min:3'],
+//            'user_id' => ['required', 'integer', 'max:11', 'min:1'],
+//            'nick' => ['required', 'string', 'regex:/^[a-zA-Z0-9_]+$/i', 'max:30', 'min:3'],
             'donate' => ['required', 'integer', 'max:11'],
             'type_payment' => ['required', 'string', 'max:255', 'min:3'],
+            'contact' => ['required', 'string', 'max:30'],
         ];
     }
 }

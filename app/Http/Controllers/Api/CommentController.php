@@ -50,4 +50,11 @@ class CommentController extends Controller
         $data->delete();
         return response(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function createComment(StoreCommentRequest $request, string $id)
+    {
+        $data = $request->validated();
+        Comment::firstOrCreate($data);
+        return response()->json($data, 200);
+    }
 }
