@@ -26,7 +26,12 @@ class PostsController extends Controller
 
     public function index()
     {
-        return PostResource::collection(Post::all());
+        $data = PostResource::collection(Post::all());
+        if(!$data)
+        {
+            return response()->json('Список постов пуст');
+        }
+        return $data;
     }
 
     public function store(StorePostRequest $request)
@@ -40,7 +45,11 @@ class PostsController extends Controller
 
     public function show(string $id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::find($id);
+        if(!$post)
+        {
+            return response()->json('Такого поста не существует');
+        }
         $comments = Comment::where('post_id', $id)->get();
         //return $data = [$post, $comments];
         return response()->json([
@@ -51,7 +60,11 @@ class PostsController extends Controller
 
     public function update(StorePostRequest $request, string $id)
     {
-        $data = Post::findOrFail($id);
+        $data = Post::find($id);
+        if(!$data)
+        {
+            return response()->json('Такого поста не существует');
+        }
         $data->fill($request->except(['id']));
         $data['photo'] = Storage::disk('storage')->put('/post', $request['photo']);
         $data->save();
@@ -60,8 +73,12 @@ class PostsController extends Controller
 
     public function destroy(string $id)
     {
-        $data = Post::findOrFail($id);
+        $data = Post::find($id);
+        if(!$data)
+        {
+            return response()->json('Такого поста не существует');
+        }
         $data->delete();
-        return response(null, Response::HTTP_NO_CONTENT);
+        return response()->json('Пост '.$data['name'].'('.$data['id'].') был удален');
     }
 }

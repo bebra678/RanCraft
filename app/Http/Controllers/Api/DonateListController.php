@@ -18,7 +18,12 @@ class DonateListController extends Controller
     }
     public function index()
     {
-        return DonateList::all();
+        $data = DonateList::all();
+        if(!$data)
+        {
+            return response()->json('Список донатов пуст');
+        }
+        return $data;
     }
 
     public function store(StoreDonateRequest $request)
@@ -35,7 +40,12 @@ class DonateListController extends Controller
 
     public function show(string $id)
     {
-        return DonateList::findOrFail($id);
+        $data = DonateList::find($id);
+        if(!$data)
+        {
+            return response()->json('Такого доната не существует');
+        }
+        return $data;
     }
 
     public function update(Request $request, string $id)
@@ -45,8 +55,12 @@ class DonateListController extends Controller
 
     public function destroy(string $id)
     {
-        $data = DonateList::findOrFail($id);
+        $data = DonateList::find($id);
+        if(!$data)
+        {
+            return response()->json('Такого доната не существует');
+        }
         $data->delete();
-        return response(null, Response::HTTP_NO_CONTENT);
+        return response()->json('Донат '.$data['name'].'('.$data['id'].')'.' был удален');
     }
 }

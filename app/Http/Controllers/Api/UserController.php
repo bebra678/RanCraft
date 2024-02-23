@@ -17,7 +17,12 @@ class UserController extends Controller
 {
     public function index()
     {
-        return User::all();
+        $data = User::all();
+        if(!$data)
+        {
+            return response()->json('Список пользователей пуст');
+        }
+        return $data;
     }
     public function store(Request $request)
     {
@@ -25,40 +30,53 @@ class UserController extends Controller
     }
     public function show(string $id)
     {
-        return User::findOrFail($id);
+        $data = User::find($id);
+        if(!$data)
+        {
+            return response()->json('Такого пользователя не существует');
+        }
+        return $data;
     }
 
     public function update(StoreUserRequest $request, string $id)
     {
-        $data = User::findOrFail($id);
+        $data = User::find($id);
+        if(!$data)
+        {
+            return response()->json('Такого пользователя не существует');
+        }
         $data->fill($request->except(['id']));
         if($request['photo'])
         {
             $data['photo'] = Storage::disk('storage')->put('/avatar', $request['photo']);
         }
         $data->save();
-        return response()->json($data);
+        return $data;
     }
     public function destroy(string $id)
     {
-        $data = User::findOrFail($id);
+        $data = User::find($id);
+        if(!$data)
+        {
+            return response()->json('Такого пользователя не существует');
+        }
         $data->delete();
-        return response(null, Response::HTTP_NO_CONTENT);
+        return response('Пользователь '.$data['nick'].'('.$data['id'].') был удален');
     }
 
-    public function updateSkin(UpdateAvatarRequest $request, string $id)
+    public function updateSkin(UpdateAvatarRequest $request)
     {
         $request->validated();
-        $data = User::findOrFail($id);
+        $data = User::findOrFail(Auth::id());
         $data['photo'] = Storage::disk('storage')->put('/avatar', $request['photo']);
         $data->save();
         return response()->json($data, 200);
     }
 
-    public function changePassword(ChangePasswordRequest $request, string $id)
+    public function changePassword(ChangePasswordRequest $request)
     {
         $request->validated();
-        $data = User::findOrFail($id);
+        $data = User::findOrFail(Auth::id());
         if(Hash::check($request['old_password'], $data['password']))
         {
             $data['password'] = Hash::make($request['password']);
