@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('donate_lists', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 30);
-            $table->text('text');
-            $table->string('photo')->default('post/r5fFrRXyXsfjucqJZRhT5xnqmWhAQUlZlqVywahB.jpg');
+            $table->string('name', 255);
+            $table->integer('price');
+            $table->string('description', 255);
+            $table->string('photo', 255);
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('donate_lists');
     }
 };
