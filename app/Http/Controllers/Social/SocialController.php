@@ -20,14 +20,12 @@ class SocialController extends Controller
     {
         $user = Socialite::driver('vkontakte')->user();
         $email = $user->getEmail();
-        $name = $user->getName();
         $u = User::where('email', $email)->first();
-        $data = ['email' => $email, 'name' => $name];
+        $data = ['email' => $email];
         if($u)
         {
             return $email;
         }
-        //User::create($data);
         return $data;
     }
 }

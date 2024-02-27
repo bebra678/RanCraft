@@ -23,7 +23,7 @@ class User extends Authenticatable implements BannableInterface
     protected $fillable = [
         'id',
         'nick',
-        'name',
+//        'name',
         'email',
         'password',
         'role',
