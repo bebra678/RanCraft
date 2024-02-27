@@ -37,7 +37,7 @@ export default defineComponent({
         };
     },
     async created() {
-        const response = await fetch('http://127.0.0.1:8000/api/posts');
+        const response = await fetch('http://127.0.0.1:8000/api/post');
         const data = await response.json();
         this.posts = data.data;
     },
