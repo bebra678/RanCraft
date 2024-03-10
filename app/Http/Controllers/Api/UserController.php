@@ -15,6 +15,10 @@ use App\Http\Requests\ChangePasswordRequest;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin')->except('updateSkin', 'changePassword');
+    }
     public function index()
     {
         $data = User::all();
