@@ -4,7 +4,7 @@
     <div class="lc__content">
         <div class="lc__skin">
             <div class="lc__skin-model"></div>
-            <button class="aside-auth__btn news__btn-more">ЗАГРУЗИТЬ СКИН</button>
+            <input class="aside-auth__btn news__btn-more" value="ЗАГРУЗИТЬ СКИН" type="submit" @click.prevent="addFile">
         </div>
         <ul class="lc__inf-list">
             <li class="lc__inf-list-item">
@@ -19,7 +19,7 @@
                 <span>Скин</span>
                 <label class="lc__inf-file">
                     Выберите файл
-                    <input type="file">
+                    <input type="file" @change="handleFileInputChange">
                 </label>
             </li>
         </ul>
@@ -35,7 +35,8 @@ export default defineComponent({
     components: {},
     setup() {
         return {
-            nick: localStorage.getItem('nickname')
+            nick: localStorage.getItem('nickname'),
+            photo: null,
         };
     },
     mounted() {
@@ -47,6 +48,21 @@ export default defineComponent({
                 .then(res => {
                     console.log(res);
                 })
+        },
+        addFile() {
+            axios.post('/change/img', {
+                photo: this.photo,
+            })
+                .then(res => {
+                    // localStorage.setItem('x_xsrf_token', res.config.headers['X-XSRF-TOKEN'])
+                    // this.$router.push({ name: 'home' })
+                    // this.$forceUpdate()
+                })
+
+        },
+        handleFileInputChange(event) {
+            this.photo = event.target.files[0];
+            console.log(this.photo); // Обработка выбранного файла
         }
     }
 });

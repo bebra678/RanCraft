@@ -1,17 +1,18 @@
 <template>
     <h1 class="title">Админ панель</h1>
 
-    <ul class="admin-list">
-        <li class="admin-list__item">user</li>
-        <li class="admin-list__item">post</li>
-        <li class="admin-list__item">donate</li>
+    <div class="admin-list">
+        <router-link class="admin-list__item" to="/admin/users">users</router-link>
+        <router-link class="admin-list__item" to="/admin/posts">posts</router-link>
+        <router-link class="admin-list__item" to="/admin/donates">donates</router-link>
         <li class="admin-list__item">ban</li>
+        <router-link class="admin-list__item" to="/admin/requests">requests</router-link>
         <li class="admin-list__item"></li>
         <li class="admin-list__item"></li>
         <li class="admin-list__item"></li>
         <li class="admin-list__item"></li>
         <li class="admin-list__item"></li>
-    </ul>
+    </div>
 </template>
 
 <script lang="ts">
@@ -28,7 +29,7 @@ export default defineComponent({
 <style scoped>
 .admin-list {
     display: grid;
-    grid-template-columns: repeat(3, 125px);
+    grid-template-columns: repeat(3, 160px);
     gap: 80px;
     padding: 0;
     margin: 0;
@@ -37,8 +38,7 @@ export default defineComponent({
 }
 
 .admin-list__item {
-    background-color: #ccc;
-    height: 125px;
+    height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,5 +48,8 @@ export default defineComponent({
     color: #000000;
 
 
+    text-decoration: none;
+
+    border: 2px solid #18333E;
 }
 </style>

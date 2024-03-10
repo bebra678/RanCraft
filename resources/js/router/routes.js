@@ -1,11 +1,17 @@
 import Home from "../pages/Home.vue";
 import Download from "../pages/Download.vue";
 import Admin from "../pages/Admin.vue";
+import AdminUsers from "../pages/AdminUsers.vue";
+import AdminPosts from "../pages/AdminPosts.vue";
+import AdminDonates from "../pages/AdminDonates.vue";
+import AdminRequests from "../pages/AdminRequests.vue";
 import Donate from "../pages/Donate.vue";
 import Reg from "../pages/Reg.vue";
 import Profile from "../pages/Profile.vue";
 import Personal from "../components/Personal.vue";
 import Post from "../components/Post.vue";
+import DonateInf from "../components/DonateInf.vue";
+import DonateOrder from "../pages/DonateOrder.vue";
 import ChangePass from "../components/ChangePass.vue";
 
 const routes = [
@@ -18,6 +24,26 @@ const routes = [
         path: '/admin',
         component: Admin,
         name: 'admin'
+    },
+    {
+        path: '/admin/users',
+        component: AdminUsers,
+        name: 'admin-users'
+    },
+    {
+        path: '/admin/posts',
+        component: AdminPosts,
+        name: 'admin-posts'
+    },
+    {
+        path: '/admin/donates',
+        component: AdminDonates,
+        name: 'admin-donates'
+    },
+    {
+        path: '/admin/requests',
+        component: AdminRequests,
+        name: 'admin-requests'
     },
     {
         path: '/donate',
@@ -45,9 +71,19 @@ const routes = [
         name: 'personal'
     },
     {
+        path: '/donate-order',
+        component: DonateOrder,
+        name: 'donate-order'
+    },
+    {
         path: '/post/:id',
         name: 'post',
         component: Post,
+    },
+    {
+        path: '/donate-inf/:id',
+        name: 'donate-inf',
+        component: DonateInf,
     },
     {
         path: '/change-password',

@@ -129,7 +129,9 @@ export default defineComponent({
     methods: {
         login() {
             axios.get('/sanctum/csrf-cookie').then(response => {
-                axios.post('/login', { nick: this.nick, password: this.password })
+                if (this.nick.includes('@')) {
+                    // Введен email
+                    axios.post('/login', { email: this.nick, password: this.password })
                     .then(r => {
                         localStorage.setItem('x_xsrf_token', r.config.headers['X-XSRF-TOKEN'])
                         localStorage.setItem('nickname', this.nick)
@@ -137,7 +139,21 @@ export default defineComponent({
                         this.$forceUpdate()
                     })
                     .catch(err => {
+                        // Обработка ошибки
+                    });
+                } else {
+                    // Введен nick
+                    axios.post('/login', { nick: this.nick, password: this.password })
+                    .then(r => {
+                        localStorage.setItem('x_xsrf_token', r.config.headers['X-XSRF-TOKEN'])
+                        localStorage.setItem('nickname', this.nick)
+                        this.$router.push({ name: 'home' })
+                        this.$forceUpdate()
                     })
+                    .catch(err => {
+                        // Обработка ошибки
+                    });
+                }
             })
         },
         logout() {

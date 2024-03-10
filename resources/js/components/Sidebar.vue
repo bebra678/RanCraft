@@ -18,6 +18,12 @@
             </li>
             <li class="aside__item">
                 <a class="aside__link" href="#">
+                    <img src="../../img/aside/aside-list-icon-4.svg" alt="" aria-hidden="true">
+                    Онлайн карта
+                </a>
+            </li>
+            <li class="aside__item">
+                <a class="aside__link" href="#">
                     <img src="../../img/aside/aside-list-icon-3.svg" alt="" aria-hidden="true">
                     Сервера
                 </a>
@@ -73,7 +79,7 @@ body {
 }
 
 .main {
-    max-width: 800px;
+    max-width: 1000px;
     width: 100%;
     margin: 0 auto;
     padding: 25px;
