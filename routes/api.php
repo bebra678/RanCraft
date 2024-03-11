@@ -31,18 +31,24 @@ Route::get('/post', function () {
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function (){
-    Route::post('/change/password', [UserController::class, 'changePassword']);
-    Route::post('/change/img', [UserController::class, 'updateSkin']);
-    Route::post('/create/comment', [CommentController::class, 'createComment']);
-    Route::post('/create/application', [DonateController::class, 'createApplication']);
-    Route::apiResources(['/comments' => CommentController::class,]);
-    Route::apiResources(['/users' => UserController::class,]);
-    Route::get('/bans', [BanController::class, 'index']);
-    Route::post('/setban/{id}', [BanController::class, 'setBan']);
-    Route::post('/unban/{id}', [BanController::class, 'unBan']);
-    Route::apiResources(['/admin/donate/applications' => DonateController::class,]);
-    Route::apiResources(['/admin/donate' => DonateListController::class,]);
-    Route::apiResources(['/posts' => PostsController::class,]);
+    Route::group(['middleware' => 'forbid-banned-user'], function () {
+        Route::post('/change/password', [UserController::class, 'changePassword']);
+        Route::post('/change/img', [UserController::class, 'updateSkin']);
+        Route::post('/create/comment', [CommentController::class, 'createComment']);
+        Route::post('/create/application', [DonateController::class, 'createApplication']);
+        Route::apiResources(['/comments' => CommentController::class,]);
+        Route::apiResources(['/users' => UserController::class,]);
+        Route::get('/bans', [BanController::class, 'index']);
+        Route::post('/setban/{id}', [BanController::class, 'setBan']);
+        Route::post('/unban/{id}', [BanController::class, 'unBan']);
+        Route::apiResources(['/admin/donate/applications' => DonateController::class,]);
+        Route::apiResources(['/admin/donate' => DonateListController::class,]);
+        Route::apiResources(['/posts' => PostsController::class,]);
+    });
+});
+
+Route::group(['middleware' => 'admin'], function (){
+
 });
 
 Route::group(['middleware' => 'forbid-banned-user'], function () {
@@ -53,7 +59,5 @@ Route::group(['middleware' => 'check.user'], function (){
 
 });
 
-Route::group(['middleware' => 'admin'], function (){
 
-});
 

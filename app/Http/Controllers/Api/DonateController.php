@@ -15,7 +15,7 @@ class DonateController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin')->except('createApplication', 'show');
+        $this->middleware('admin')->except('createApplication');
     }
     public function index()
     {
