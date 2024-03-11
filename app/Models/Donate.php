@@ -14,5 +14,6 @@ class Donate extends Model
         'donate',
         'type_payment',
         'contact',
+        'price',
     ];
 }

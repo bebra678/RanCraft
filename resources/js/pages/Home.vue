@@ -33,7 +33,7 @@ export default defineComponent({
             posts: [],
             maxPostsToShow: 3, // предельное количество отображаемых постов
             visiblePostCount: 3, // количество отображаемых постов
-            baseUrl: '../../../public/img/post/r5fFrRXyXsfjucqJZRhT5xnqmWhAQUlZlqVywahB.jpg',
+            baseUrl: 'http://[::1]:5173/public/img/',
         };
     },
     async created() {
