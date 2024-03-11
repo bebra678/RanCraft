@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Фев 27 2024 г., 11:04
+-- Время создания: Мар 11 2024 г., 18:51
 -- Версия сервера: 10.4.28-MariaDB
 -- Версия PHP: 8.2.4
 
@@ -85,7 +85,8 @@ CREATE TABLE `comments` (
 
 INSERT INTO `comments` (`id`, `user_id`, `nick`, `post_id`, `message`, `created_at`, `updated_at`) VALUES
 (1, 1, 'user_123', 11, 'Коммент', '2024-02-23 13:59:57', NULL),
-(12, 27, 'admin', 10, 'Блла бла', '2024-02-23 07:09:29', '2024-02-23 07:09:29');
+(12, 27, 'admin', 10, 'Блла бла', '2024-02-23 07:09:29', '2024-02-23 07:09:29'),
+(13, 27, 'admin', 10, '123123', '2024-03-10 10:07:23', '2024-03-10 10:07:23');
 
 -- --------------------------------------------------------
 
@@ -100,6 +101,7 @@ CREATE TABLE `donates` (
   `donate` varchar(255) NOT NULL,
   `type_payment` varchar(255) NOT NULL,
   `contact` varchar(255) NOT NULL,
+  `price` int(255) NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -108,15 +110,18 @@ CREATE TABLE `donates` (
 -- Дамп данных таблицы `donates`
 --
 
-INSERT INTO `donates` (`id`, `user_id`, `nick`, `donate`, `type_payment`, `contact`, `updated_at`, `created_at`) VALUES
-(1, 1, 'user_123', '1', 'Карта', '', NULL, NULL),
-(2, 2, 'asdd_123', '0', 'Крипта', '', '2024-01-29 07:08:29', '2024-01-29 07:08:29'),
-(3, 2, 'asdd_123', '0', 'Крипта', '', '2024-01-29 07:08:50', '2024-01-29 07:08:50'),
-(4, 2, 'asdd_123', '0', 'Крипта', '', '2024-01-29 07:10:13', '2024-01-29 07:10:13'),
-(7, 1, 'user_123', '1', 'Карта', '', '2024-02-15 06:00:29', '2024-02-15 06:00:29'),
-(8, 1, 'user_123', 'Приват', 'Карта', '', '2024-02-15 06:53:29', '2024-02-15 06:53:29'),
-(9, 27, 'admin', 'Приват', 'Карта', 'vk: @id123123123123', '2024-02-22 10:26:40', '2024-02-22 10:26:40'),
-(10, 27, 'admin', 'Приват', 'Карта', 'vk: @id123123123123', '2024-02-22 10:47:17', '2024-02-22 10:47:17');
+INSERT INTO `donates` (`id`, `user_id`, `nick`, `donate`, `type_payment`, `contact`, `price`, `updated_at`, `created_at`) VALUES
+(1, 1, 'user_123', '1', 'Карта', '', 0, NULL, NULL),
+(2, 2, 'asdd_123', '0', 'Крипта', '', 0, '2024-01-29 07:08:29', '2024-01-29 07:08:29'),
+(3, 2, 'asdd_123', '0', 'Крипта', '', 0, '2024-01-29 07:08:50', '2024-01-29 07:08:50'),
+(4, 2, 'asdd_123', '0', 'Крипта', '', 0, '2024-01-29 07:10:13', '2024-01-29 07:10:13'),
+(7, 1, 'user_123', '1', 'Карта', '', 0, '2024-02-15 06:00:29', '2024-02-15 06:00:29'),
+(8, 1, 'user_123', 'Приват', 'Карта', '', 0, '2024-02-15 06:53:29', '2024-02-15 06:53:29'),
+(9, 27, 'admin', 'Приват', 'Карта', 'vk: @id123123123123', 0, '2024-02-22 10:26:40', '2024-02-22 10:26:40'),
+(10, 27, 'admin', 'Приват', 'Карта', 'vk: @id123123123123', 0, '2024-02-22 10:47:17', '2024-02-22 10:47:17'),
+(11, 27, 'admin', 'Приват', 'Карта', 'vk: @id123123123123', 0, '2024-03-07 09:43:08', '2024-03-07 09:43:08'),
+(12, 27, 'admin', 'Приват', 'Карта', 'vk: @id123123123123', 0, '2024-03-11 10:32:31', '2024-03-11 10:32:31'),
+(13, 27, 'admin', 'Приват', 'Карта', 'vk: @id123123123123', 150, '2024-03-11 10:50:50', '2024-03-11 10:50:50');
 
 -- --------------------------------------------------------
 
@@ -300,7 +305,7 @@ INSERT INTO `users` (`id`, `nick`, `name`, `email`, `email_verified_at`, `passwo
 (23, 'jsdjhsdhh2', 'asf', 'sdgjkljklhhjl3@mail.com', NULL, '$2y$12$KhrH.HyLG7ijgu8AAkyDiuueE/QwMp.QRdPRjI884zpEJSjE3yv6e', NULL, 'images/OhS1MtpwFgIam8PQRybMNjIItIXFH322OtYlXUAH.jpg', NULL, NULL, NULL, '2024-02-04 08:56:42', '2024-02-22 09:26:51', NULL),
 (25, 'test4', 'asdasd', 'sony996525@gmail.com', NULL, '$2y$12$iKib1hV/ohz5iKT8CSxe0.RMKzBWztZfXO2ZcnNEsrCbc.ISmQdte', NULL, NULL, NULL, NULL, NULL, '2024-02-04 09:00:32', '2024-02-04 09:00:32', NULL),
 (26, 'test5', 'asf', 'sdgjkljk23lhhjl3@mail.com', NULL, '$2y$12$J6buwvUp09JWiFynniNOp.HNbsjF/pVa0RHexvecGqY1C1WBM9Yki', NULL, 'images/vk5TqeT50MEy6PE9EvqD7WY9uv0HMtlWwh44TGGt.jpg', NULL, NULL, NULL, '2024-02-04 12:04:48', '2024-02-04 12:06:44', NULL),
-(27, 'admin', 'Admin', 'admin@gmail.com', '2024-02-04 12:09:57', '$2y$12$gTsxj63FA/Pn9ZNa5YGaC.e7bKM/50XI0KdYOoV.f7xgpREiMS.C.', 2, 'avatar/y1atWZNdL8dEGWG9UszeaY3jMKWfKXvhj6ZvnAfE.png', NULL, NULL, NULL, '2024-02-04 12:09:54', '2024-02-23 06:57:53', NULL),
+(27, 'admin', 'Admin', 'admin@gmail.com', '2024-02-04 12:09:57', '$2y$12$gTsxj63FA/Pn9ZNa5YGaC.e7bKM/50XI0KdYOoV.f7xgpREiMS.C.', 2, 'avatar/default.png', NULL, NULL, NULL, '2024-02-04 12:09:54', '2024-02-23 06:57:53', NULL),
 (28, 'test7', 'asdasd', 'asdasdadsg4g@mail.com', NULL, '$2y$12$R7tRDg526Js39mz/brPKOevxgJE7BwaZRCuNYg.pkdh8F3W8L1xii', NULL, 'images/default.png', NULL, NULL, NULL, '2024-02-05 14:48:00', '2024-02-05 14:48:33', '2024-02-05 14:48:33'),
 (29, 'hiosdggiosdgjogojijipsdg', 'sdopkgipjsdgjip', 'asasgag@mail.com', NULL, '$2y$12$dTh/JFTZ4AB4xH6F/2CU5OniybIId/gr2ZLIHHoEd1bjto02.Nl/6', NULL, 'images/default.png', NULL, NULL, NULL, '2024-02-06 02:28:05', '2024-02-06 02:28:05', NULL);
 
@@ -396,13 +401,13 @@ ALTER TABLE `bans`
 -- AUTO_INCREMENT для таблицы `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT для таблицы `donates`
 --
 ALTER TABLE `donates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT для таблицы `donate_lists`
