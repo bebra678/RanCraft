@@ -33,11 +33,13 @@
     </aside>
     <aside class="aside-auth" v-if="token">
         <h2 class="aside-auth__title">
-            <img src="../../img/header-profile/header-profile-avatar.png" alt="" width="69" height="69">
+            <!-- <img src="../../img/header-profile/header-profile-avatar.png" alt="" width="69" height="69"> -->
+
+            <div class="avatar" v-if="this.photo" :style="{ 'background-image': 'url(http://localhost:5173/public/img/' + this.photo + ')' }"></div>
 
             <div class="aside-auth__title-text">
                 <span>Профиль</span>
-                <span data-nickname>{{ nick }}</span>
+                <span data-nickname>{{ this.nickname }}</span>
             </div>
         </h2>
 
@@ -133,9 +135,13 @@ export default defineComponent({
                     // Введен email
                     axios.post('/login', { email: this.nick, password: this.password })
                     .then(r => {
+                        console.log(r);
+
                         localStorage.setItem('x_xsrf_token', r.config.headers['X-XSRF-TOKEN'])
-                        localStorage.setItem('nickname', this.nick)
+                        localStorage.setItem('nickname', r.data.nick)
+                        localStorage.setItem('photo', r.data.photo)
                         this.$router.push({ name: 'home' })
+
                         this.$forceUpdate()
                     })
                     .catch(err => {
@@ -145,9 +151,13 @@ export default defineComponent({
                     // Введен nick
                     axios.post('/login', { nick: this.nick, password: this.password })
                     .then(r => {
+                        console.log(r);
+
                         localStorage.setItem('x_xsrf_token', r.config.headers['X-XSRF-TOKEN'])
-                        localStorage.setItem('nickname', this.nick)
+                        localStorage.setItem('nickname', r.data.nick)
+                        localStorage.setItem('photo', r.data.photo)
                         this.$router.push({ name: 'home' })
+
                         this.$forceUpdate()
                     })
                     .catch(err => {
@@ -173,9 +183,10 @@ export default defineComponent({
     data() {
         return {
             //email: null,
-            nick: localStorage.getItem('nickname') || null,
+            nickname: localStorage.getItem('nickname'),
+            photo: localStorage.getItem('photo'),
             password: null,
-            token: null
+            token: null,
         }
     },
 
@@ -284,5 +295,12 @@ export default defineComponent({
     align-items: center;
     gap: 10px;
     width: 100%;
+}
+
+.avatar {
+    width: 70px;
+    height: 70px;
+    background-size: 650px;
+    background-position: 549px 1290px;
 }
 </style>

@@ -39,30 +39,34 @@ export default defineComponent({
             photo: null,
         };
     },
-    mounted() {
-        this.getData()
-    },
     methods: {
-        getData() {
-            axios.get('api/posts')
-                .then(res => {
-                    console.log(res);
-                })
-        },
         addFile() {
-            axios.post('/change/img', {
+
+            const headers = {
+                'Content-Type': 'multipart/form-data',
+                'X-XSRF-TOKEN': localStorage.getItem('x_xsrf_token'),
+            };
+
+            // Данные для отправки
+            const data = {
                 photo: this.photo,
+            };
+
+            axios.post('api/change/img', data, {
+                headers: headers
             })
-                .then(res => {
-                    // localStorage.setItem('x_xsrf_token', res.config.headers['X-XSRF-TOKEN'])
-                    // this.$router.push({ name: 'home' })
-                    // this.$forceUpdate()
+                .then(response => {
+                    console.log(response.data);
+                    localStorage.setItem('photo', response.data.photo);
+                    window.location.reload();
                 })
+                .catch(error => {
+                    console.error(error);
+                });
 
         },
         handleFileInputChange(event) {
             this.photo = event.target.files[0];
-            console.log(this.photo); // Обработка выбранного файла
         }
     }
 });

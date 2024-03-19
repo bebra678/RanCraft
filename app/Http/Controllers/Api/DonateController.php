@@ -82,7 +82,7 @@ class DonateController extends Controller
             'contact' => $data['contact'],
             'price' => $donate['price'],
         ]);
-        $message = 'Игрок'.' '.$user['nick'].'('. $user['id'].')'.' сделал запрос на донат: '.$data['donate'].'. '.'Цена: '.$donate['price'].'. '.'Тип оплаты: '.$data['type_payment'].'. '.'Контакты для связи:'.$data['contact'];
+        $message = 'Игрок'.' '.$user['nick'].'('. $user['id'].')'.' сделал запрос на донат: '.$donate['name'].'. '.'Цена: '.$donate['price'].'. '.'Тип оплаты: '.$data['type_payment'].'. '.'Контакты для связи:'.$data['contact'];
         file_get_contents('https://api.telegram.org/bot6617492895:AAEjVeXMghllC0_E_EUxoF7JaZyFJeOJCxM/sendMessage?chat_id=-1002042695958&text='.$message);
         return response()->json($data, 200);
     }

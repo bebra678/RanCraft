@@ -12,7 +12,7 @@
         <label class="reg-label">
             Тип оплаты:
             <select v-model="type_payment" class="donate-order__select">
-                <option value="Карта">Карта</option>
+                <option selected value="Карта">Карта</option>
                 <option value="Крипта">Крипта</option>
             </select>
         </label>
@@ -41,7 +41,7 @@ export default defineComponent({
         return {
             nickname: localStorage.getItem('nickname'),
             currentDonate: localStorage.getItem('currentDonate'),
-            type_payment: null,
+            type_payment: 'Карта',
             contact: null,
         }
     },
@@ -67,22 +67,27 @@ export default defineComponent({
     },
     methods: {
         order() {
-            axios.get('/sanctum/csrf-cookie').then(response => {
-                console.log(localStorage.getItem('currentDonate'));
-                console.log(this.type_payment);
-                console.log(this.contact);
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-XSRF-TOKEN': localStorage.getItem('x_xsrf_token'),
+            };
 
-                axios.post('/create/application', {
-                    donate: localStorage.getItem('currentDonate'),
-                    type_payment: this.type_payment,
-                    contact: this.contact,
-                })
-                    .then(res => {
-                        // localStorage.setItem('x_xsrf_token', res.config.headers['X-XSRF-TOKEN'])
-                        // this.$router.push({ name: 'home' })
-                        // this.$forceUpdate()
-                    })
+            // Данные для отправки
+            const data = {
+                donate: this.currentDonate,
+                type_payment: this.type_payment,
+                contact: this.contact,
+            };
+
+            axios.post('api/create/application', data, {
+                headers: headers
             })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         }
     },
 });

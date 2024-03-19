@@ -47,11 +47,9 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     });
 });
 
+
+
 Route::group(['middleware' => 'admin'], function (){
-
-});
-
-Route::group(['middleware' => 'forbid-banned-user'], function () {
 
 });
 
@@ -61,3 +59,6 @@ Route::group(['middleware' => 'check.user'], function (){
 
 
 
+/*
+ /auth/userinfo.email
+ */

@@ -1,21 +1,21 @@
 <template>
     <h1 class="main-title">Сменить пароль</h1>
-    <div class="reg-form">
+    <form class="reg-form" ref="myForm">
         <label class="reg-label">
             Старый пароль
-            <input type="text" placeholder="Введите cтарый пароль" class="form-control">
+            <input v-model="old_password" type="text" placeholder="Введите cтарый пароль" class="form-control">
         </label>
         <label class="reg-label">
             Новый пароль
-            <input type="text" placeholder="Введите новый пароль" class="form-control">
+            <input v-model="password" type="text" placeholder="Введите новый пароль" class="form-control">
         </label>
         <label class="reg-label">
             Повторите пароль
-            <input type="email" placeholder="Введите новый пароль" class="form-control">
+            <input v-model="password_confirmation" type="email" placeholder="Введите новый пароль" class="form-control">
         </label>
 
-        <input value="СМЕНИТЬ ПАРОЛЬ" class="aside-auth__btn reg-btn">
-    </div>
+        <input type="submit" value="СМЕНИТЬ ПАРОЛЬ" class="aside-auth__btn reg-btn" @click.prevent="changePass">
+    </form>
 </template>
 
 <script lang="ts">
@@ -25,8 +25,40 @@ import axios from "axios";
 export default defineComponent({
     components: {},
     setup() {
-        return {};
+        return {
+            old_password: null,
+            password: null,
+            password_confirmation: null,
+        };
     },
+    methods: {
+        changePass() {
+
+            const headers = {
+                'Content-Type': 'multipart/form-data',
+                'X-XSRF-TOKEN': localStorage.getItem('x_xsrf_token'),
+            };
+
+            // Данные для отправки
+            const data = {
+                old_password: this.old_password,
+                password: this.password,
+                password_confirmation: this.password_confirmation
+            };
+
+            axios.post('api/change/password', data, {
+                headers: headers
+            })
+                .then(response => {
+                    console.log(response);
+                    this.$refs.myForm.reset();
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+        }
+    }
 });
 </script>
 
