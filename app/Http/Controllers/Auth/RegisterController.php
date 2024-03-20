@@ -56,6 +56,27 @@ class RegisterController extends Controller
 //            'g-recaptcha-response' => ['required', 'captcha'],
             'tg' => ['nullable', 'max:255'],
             'vk' => ['nullable', 'max:255'],
+        ], [
+                'nick.required' => 'Вы не указали Nick',
+                'nick.regex' => 'Nick может только содержать: латинские буквы, цифры и нижние подчеркивание',
+                'nick.max' => 'Nick должен содержать не более 30 символов',
+                'nick.unique' => 'Данный Nick уже занят',
+                'nick.min' => 'Nick должен содержать не меньше 3 символов',
+                'name.required' => 'Вы не указали Имя',
+                'name.string' => 'Поле Имя должно быть строкой',
+                'name.min' => 'Имя должно содержать не меньше 2 символов',
+                'name.max' => 'Имя должно содержать не более 30 символов',
+                'email.required' => 'Вы не указали Email',
+                'email.string' => 'Поле Email должно быть строкой',
+                'email.email' => 'Неверный формат электронной почты',
+                'email.min' => 'Email должен содержать не меньше 10 символов',
+                'email.max' => 'Email должен содержать не более 50 символов',
+                'email.unique' => 'Данный Email уже занят',
+                'password.string' => 'Поле Пароль должно быть строкой',
+                'password.max' => 'Password должен содержать не более 100 символов',
+                'password.min' => 'Password должен содержать не меньше 8 символов',
+                'password.confirmed' => 'Пароли не совпадают',
+                'password.required' => 'Вы не заполнили поле Пароль',
         ]);
     }
 
