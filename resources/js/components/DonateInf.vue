@@ -53,6 +53,7 @@ export default defineComponent({
                 .then(response => {
                     donate.value = response.data;
                     localStorage.setItem('currentDonate', response.data.name);
+                    localStorage.setItem('currentPrice', response.data.price);
                     console.log(response.data);
                 })
                 .catch(error => {

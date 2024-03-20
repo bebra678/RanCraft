@@ -10,6 +10,10 @@
             <span>{{ currentDonate }}</span>
         </label>
         <label class="reg-label">
+            Цена:
+            <span>{{ currentPrice }}Р</span>
+        </label>
+        <label class="reg-label">
             Тип оплаты:
             <select v-model="type_payment" class="donate-order__select">
                 <option selected value="Карта">Карта</option>
@@ -41,6 +45,8 @@ export default defineComponent({
         return {
             nickname: localStorage.getItem('nickname'),
             currentDonate: localStorage.getItem('currentDonate'),
+            currentDonateId: localStorage.getItem('currentDonateId'),
+            currentPrice: localStorage.getItem('currentPrice'),
             type_payment: 'Карта',
             contact: null,
         }
@@ -74,9 +80,10 @@ export default defineComponent({
 
             // Данные для отправки
             const data = {
-                donate: this.currentDonate,
+                donate: this.currentDonateId,
                 type_payment: this.type_payment,
                 contact: this.contact,
+                price: this.currentPrice,
             };
 
             axios.post('api/create/application', data, {

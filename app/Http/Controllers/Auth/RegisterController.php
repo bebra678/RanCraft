@@ -50,7 +50,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'nick' => ['required', 'regex:/^[a-zA-Z0-9_]+$/i', 'max:30', 'unique:users', 'min:3'], //regex:/^[a-z]+$/i  alpha_dash
-//            'name' => ['required', 'string', 'min:2', 'max:30'],
+            'name' => ['required', 'string', 'min:2', 'max:30'],
             'email' => ['required', 'string', 'email', 'min:10','max:50', 'unique:users'],
             'password' => ['required', 'string', 'max:100', 'min:8', 'confirmed'],
 //            'g-recaptcha-response' => ['required', 'captcha'],

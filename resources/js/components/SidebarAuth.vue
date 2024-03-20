@@ -15,8 +15,14 @@
             Авторизация
         </h2>
 
-        <input v-model="nick" type="text" placeholder="Логин" class="aside-auth__input">
-        <input v-model="password" type="password" placeholder="Пароль" class="aside-auth__input">
+        <label class="input-label">
+            <input v-model="nick" type="text" placeholder="Логин" class="aside-auth__input">
+            <span>{{ loginTextErr || nickTextErr }}</span>
+        </label>
+        <label class="input-label">
+            <input v-model="password" type="password" placeholder="Пароль" class="aside-auth__input">
+            <span>{{ passwordTextErr }}</span>
+        </label>
         <input @click.prevent="login" type="submit" value="ВОЙТИ" class="aside-auth__btn">
 
         <div class="aside-auth__links">
@@ -131,7 +137,7 @@ export default defineComponent({
     methods: {
         login() {
             axios.get('/sanctum/csrf-cookie').then(response => {
-                if (this.nick.includes('@')) {
+                if (this.nick && this.nick.includes('@')) {
                     // Введен email
                     axios.post('/login', { email: this.nick, password: this.password })
                     .then(r => {
@@ -142,10 +148,30 @@ export default defineComponent({
                         localStorage.setItem('photo', r.data.photo)
                         this.$router.push({ name: 'home' })
 
+                        this.loginTextErr = null,
+                        this.nickTextErr = null,
+                        this.passwordTextErr = null,
+
                         this.$forceUpdate()
                     })
                     .catch(err => {
-                        // Обработка ошибки
+                        if(err.response.data.errors.email) {
+                            this.loginTextErr = err.response.data.errors.email[0];
+                        } else {
+                            this.loginTextErr = null;
+                        }
+
+                        if(err.response.data.errors.nick) {
+                            this.nickTextErr = err.response.data.errors.nick[0];
+                        } else {
+                            this.nickTextErr = null;
+                        }
+
+                        if(err.response.data.errors.password) {
+                            this.passwordTextErr = err.response.data.errors.password[0];
+                        } else {
+                            this.passwordTextErr = null;
+                        }
                     });
                 } else {
                     // Введен nick
@@ -158,10 +184,31 @@ export default defineComponent({
                         localStorage.setItem('photo', r.data.photo)
                         this.$router.push({ name: 'home' })
 
-                        this.$forceUpdate()
+                        this.loginTextErr = null,
+                        this.nickTextErr = null,
+                        this.passwordTextErr = null,
+
+                        this.$forceUpdate();
                     })
                     .catch(err => {
-                        // Обработка ошибки
+                        console.log(err.response.data.errors);
+                        if(err.response.data.errors.email) {
+                            this.loginTextErr = err.response.data.errors.email[0];
+                        } else {
+                            this.loginTextErr = null;
+                        }
+
+                        if(err.response.data.errors.nick) {
+                            this.nickTextErr = err.response.data.errors.nick[0];
+                        } else {
+                            this.nickTextErr = null;
+                        }
+
+                        if(err.response.data.errors.password) {
+                            this.passwordTextErr = err.response.data.errors.password[0];
+                        } else {
+                            this.passwordTextErr = null;
+                        }
                     });
                 }
             })
@@ -187,6 +234,9 @@ export default defineComponent({
             photo: localStorage.getItem('photo'),
             password: null,
             token: null,
+            loginTextErr: null,
+            nickTextErr: null,
+            passwordTextErr: null,
         }
     },
 
@@ -302,5 +352,15 @@ export default defineComponent({
     height: 70px;
     background-size: 650px;
     background-position: 549px 1290px;
+}
+
+.input-label {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.input-label span {
+    color: red;
 }
 </style>
