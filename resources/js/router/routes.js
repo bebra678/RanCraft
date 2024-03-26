@@ -5,6 +5,8 @@ import AdminUsers from "../pages/AdminUsers.vue";
 import AdminPosts from "../pages/AdminPosts.vue";
 import AdminDonates from "../pages/AdminDonates.vue";
 import AdminRequests from "../pages/AdminRequests.vue";
+import AdminCreatePost from "../pages/AdminCreatePost.vue";
+import AdminCreateDonate from "../pages/AdminCreateDonate.vue";
 import Donate from "../pages/Donate.vue";
 import Reg from "../pages/Reg.vue";
 import Profile from "../pages/Profile.vue";
@@ -44,6 +46,16 @@ const routes = [
         path: '/admin/requests',
         component: AdminRequests,
         name: 'admin-requests'
+    },
+    {
+        path: '/admin/create-post',
+        component: AdminCreatePost,
+        name: 'admin-create-post'
+    },
+    {
+        path: '/admin/create-donate',
+        component: AdminCreateDonate,
+        name: 'admin-create-donate'
     },
     {
         path: '/donate',
@@ -93,6 +105,10 @@ const routes = [
     {
         path: '/vk/auth',
         name: 'vk_auth'
+    },
+    {
+        path: '/map',
+        name: 'map'
     },
 ]
 

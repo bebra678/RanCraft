@@ -51,11 +51,8 @@ class PostsController extends Controller
             return response()->json('Такого поста не существует');
         }
         $comments = Comment::where('post_id', $id)->get();
-        //return $data = [$post, $comments];
-        return response()->json([
-            'post' => $post,
-            'comments' => $comments
-        ]);
+        $data = ['post' => $post, 'comments' => $comments];
+        return response()->json($data);
     }
 
     public function update(StorePostRequest $request, string $id)

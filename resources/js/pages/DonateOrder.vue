@@ -22,7 +22,10 @@
         </label>
         <label class="reg-label">
             Ссылка на соц сеть:
-            <input v-model="contact" type="text" placeholder="Как с вами связаться?" class="form-control">
+            <div class="input-label">
+                <input v-model="contact" type="text" placeholder="Как с вами связаться?" class="form-control">
+                <span>{{ contact_text }}</span>
+            </div>
         </label>
 
 
@@ -49,6 +52,7 @@ export default defineComponent({
             currentPrice: localStorage.getItem('currentPrice'),
             type_payment: 'Карта',
             contact: null,
+            contact_text: null,
         }
     },
     mounted() {
@@ -90,10 +94,21 @@ export default defineComponent({
                 headers: headers
             })
                 .then(response => {
-                    console.log(response.data);
+                    console.log(response.data.errors.contact);
+
+                    if (response.data.errors.contact) {
+                        this.contact_text = response.data.errors.contact[0];
+                    }
+
+
+
+                    this.$forceUpdate();
+
                 })
                 .catch(error => {
-                    console.error(error);
+
+                    this.contact_text = null;
+
                 });
         }
     },

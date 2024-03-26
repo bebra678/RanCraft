@@ -4,7 +4,8 @@
             <h3 class="news-list__title">{{ post.title }}</h3>
 
             <!-- <img class="news-list__photo" v-if="post.photo" :src="post.photo" alt="Изображение"> -->
-            <div class="news-list__photo"></div>
+            <img class="news-list__photo" v-if="post.photo" :src="baseUrl + post.photo" alt="Изображение">
+<!--            <div class="news-list__photo"></div>-->
 
 
             <div class="news-list__item-wrapper">
@@ -36,17 +37,23 @@ import { useRoute } from 'vue-router';
 import axios from 'axios';
 
 export default defineComponent({
+    data() {
+        return {
+            baseUrl: 'http://[::1]:5173/public/img/',
+        };
+    },
     setup() {
         const post = ref(null);
-
+        const comment = ref(null);
         const route = useRoute();
         const postId = computed(() => route.params.id);
 
         onMounted(() => {
             axios.get(`http://127.0.0.1:8000/api/posts/${postId.value}`)
                 .then(response => {
-                    post.value = response.data.data;
-                    console.log(response.data.data);
+                    post.value = response.data.post;
+                    comment.value = response.data.comments;
+                    console.log(response.data);
                 })
                 .catch(error => {
                     console.error(error);

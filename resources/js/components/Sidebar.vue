@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="aside__item">
-                <a class="aside__link" href="#">
+                <a class="aside__link" href="http://rancraft.ru:8123/index.html">
                     <img src="../../img/aside/aside-list-icon-4.svg" alt="" aria-hidden="true">
                     Онлайн карта
                 </a>

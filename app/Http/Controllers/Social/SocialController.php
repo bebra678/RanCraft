@@ -19,25 +19,25 @@ class SocialController extends Controller
 
     public function vkCallback()
     {
-        $user = Socialite::driver('vkontakte')->user();
-        $existingUser = User::where('email', $user->email)->first();
-        if ($existingUser)
+        $request = Socialite::driver('vkontakte')->user();
+
+        $user = User::where('email', $request->email)->first();
+
+        if ($user)
         {
-            Auth::login($existingUser);
-            return redirect('/');
+            Auth::login($user);
+            return response()->json(['auth' => true, 'user' => $user]);
         }
         else
         {
-            return response()->json($user);
+            $data = [
+                'email' => $request->getEmail(),
+                'name' => $request->getName(),
+                'social_name' => 'vk',
+                'social_id' => $request->getId(),
+            ];
+            return response()->json(['auth' => false, 'data' => $data]);
         }
-//        $email = $user->getEmail();
-//        $u = User::where('email', $email)->first();
-//        $data = ['email' => $email];
-//        if($u)
-//        {
-//            return $email;
-//        }
-//        return $data;
     }
 
     public function google()
@@ -47,26 +47,25 @@ class SocialController extends Controller
 
     public function googleCallback()
     {
-        $user = Socialite::driver('google')->user();
+        $request = Socialite::driver('google')->user();
 
-        $existingUser = User::where('email', $user->email)->first();
+        $user = User::where('email', $request->email)->first();
 
-        if ($existingUser)
+
+        if ($user)
         {
-            Auth::login($existingUser);
-            return redirect('/')->with('user', $existingUser);
+            Auth::login($user);
+            return response()->json(['auth' => true, 'user' => $user]);
         }
         else
         {
-//            $newUser = new User();
-//            $newUser->name = $user->name;
-//            $newUser->email = $user->email;
-//            $newUser->password = bcrypt(str_random(16)); // Генерация случайного пароля
-//            $newUser->save();
-//            Auth::login($newUser);
-//            return redirect()->intended('/dashboard');
-            return redirect('/')->with('dataUser', $user);
-            //return response()->json($user);
+            $data = [
+                'email' => $request->getEmail(),
+                'name' => $request->getName(),
+                'social_name' => 'google',
+                'social_id' => $request->getId(),
+            ];
+            return response()->json(['auth' => false, 'data' => $data]);
         }
     }
 }

@@ -362,5 +362,6 @@ export default defineComponent({
 
 .input-label span {
     color: red;
+    font-size: 16px;
 }
 </style>

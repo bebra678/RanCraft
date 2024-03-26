@@ -43,10 +43,9 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
         Route::post('/unban/{id}', [BanController::class, 'unBan']);
         Route::apiResources(['/admin/donate/applications' => DonateController::class,]);
         Route::apiResources(['/admin/donate' => DonateListController::class,]);
-        Route::apiResources(['/posts' => PostsController::class,]);
     });
 });
-
+Route::apiResources(['/posts' => PostsController::class,]);
 
 
 Route::group(['middleware' => 'admin'], function (){
@@ -56,8 +55,6 @@ Route::group(['middleware' => 'admin'], function (){
 Route::group(['middleware' => 'check.user'], function (){
 
 });
-
-
 
 /*
  /auth/userinfo.email

@@ -10,8 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Carbon\Carbon;
 use Cog\Contracts\Ban\Bannable as BannableInterface;
 use Cog\Laravel\Ban\Traits\Bannable;
-//implements MustVerifyEmail
-class User extends Authenticatable implements BannableInterface
+class User extends Authenticatable implements BannableInterface, MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, Bannable;
 

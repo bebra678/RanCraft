@@ -3,29 +3,45 @@
     <div class="reg-form">
         <label class="reg-label">
             Логин
-            <input v-model="nick" type="text" placeholder="Введите логин" class="form-control">
+            <div class="input-label">
+                <input v-model="nick" type="text" placeholder="Введите логин" class="form-control">
+                <span>{{ nick_text }}</span>
+            </div>
         </label>
         <label class="reg-label">
             Имя
-            <input v-model="name" type="text" placeholder="Введите имя" class="form-control">
+            <div class="input-label">
+                <input v-model="name" type="text" placeholder="Введите имя" class="form-control">
+                <span>{{ name_text }}</span>
+            </div>
         </label>
         <label class="reg-label">
             Почта
-            <input v-model="email" type="email" placeholder="Введите почту" class="form-control">
+            <div class="input-label">
+                <input v-model="email" type="email" placeholder="Введите почту" class="form-control">
+                <span>{{ email_text }}</span>
+            </div>
         </label>
         <label class="reg-label">
             Пароль
-            <input v-model="password" type="password" placeholder="Введите пароль" class="form-control">
+            <div class="input-label">
+                <input v-model="password" type="password" placeholder="Введите пароль" class="form-control">
+                <span>{{ password_text }}</span>
+            </div>
         </label>
         <label class="reg-label">
             Пароль
-            <input v-model="password_confirmation" type="password" placeholder="Повторите пароль" class="form-control">
+            <div class="input-label">
+                <input v-model="password_confirmation" type="password" placeholder="Повторите пароль"
+                    class="form-control">
+            </div>
         </label>
 
         <label class="custom-checkbox">
             <input type="checkbox">
             <div class="custom-checkbox__text">
-                Я полностью ознакомлен и принимаю <a href="#">правила</a> и <a href="#">лицензионное соглашение</a>, а также
+                Я полностью ознакомлен и принимаю <a href="#">правила</a> и <a href="#">лицензионное соглашение</a>, а
+                также
                 даю
                 свое согласие на <a href="#">обработку
                     персональных данных</a>
@@ -57,6 +73,10 @@ export default defineComponent({
             email: null,
             password: null,
             password_confirmation: null,
+            email_text: null,
+            name_text: null,
+            nick_text: null,
+            password_text: null,
         }
     },
     mounted() {
@@ -90,10 +110,43 @@ export default defineComponent({
                     password_confirmation: this.password_confirmation
                 })
                     .then(res => {
+                        console.log(res);
+
                         localStorage.setItem('x_xsrf_token', res.config.headers['X-XSRF-TOKEN'])
                         this.$router.push({ name: 'home' })
+                        this.email_text = null;
+                        this.name_text = null;
+                        this.nick_text = null;
+                        this.password_text = null;
                         this.$forceUpdate()
                     })
+                    .catch(err => {
+                        console.log(err.response.data.errors);
+
+                        if (err.response.data.errors.nick) {
+                            this.nick_text = err.response.data.errors.nick[0];
+                        } else {
+                            this.nick_text = null;
+                        }
+
+                        if (err.response.data.errors.name) {
+                            this.name_text = err.response.data.errors.name[0];
+                        } else {
+                            this.name_text = null;
+                        }
+
+                        if (err.response.data.errors.email) {
+                            this.email_text = err.response.data.errors.email[0];
+                        } else {
+                            this.email_text = null;
+                        }
+
+                        if (err.response.data.errors.password) {
+                            this.password_text = err.response.data.errors.password[0];
+                        } else {
+                            this.password_text = null;
+                        }
+                    });
             })
         }
     },
@@ -131,8 +184,11 @@ export default defineComponent({
     width: 100%;
 }
 
-.reg-label input {
+.reg-label .input-label {
     width: 70%;
+}
+
+.reg-label input {
     background-color: #E9F1FA;
     border-radius: 26.5px;
     font-weight: 500;
