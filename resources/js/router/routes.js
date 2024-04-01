@@ -6,6 +6,9 @@ import AdminPosts from "../pages/AdminPosts.vue";
 import AdminDonates from "../pages/AdminDonates.vue";
 import AdminRequests from "../pages/AdminRequests.vue";
 import AdminCreatePost from "../pages/AdminCreatePost.vue";
+import AdminEditPost from "../pages/AdminEditPost.vue";
+import AdminEditDonate from "../pages/AdminEditDonate.vue";
+import AdminEditUser from "../pages/AdminEditUser.vue";
 import AdminCreateDonate from "../pages/AdminCreateDonate.vue";
 import Donate from "../pages/Donate.vue";
 import Reg from "../pages/Reg.vue";
@@ -51,6 +54,21 @@ const routes = [
         path: '/admin/create-post',
         component: AdminCreatePost,
         name: 'admin-create-post'
+    },
+    {
+        path: '/admin/edit-post/:id',
+        component: AdminEditPost,
+        name: 'admin-edit-post',
+    },
+    {
+        path: '/admin/edit-donate/:id',
+        component: AdminEditDonate,
+        name: 'admin-edit-donate',
+    },
+    {
+        path: '/admin/edit-user/:id',
+        component: AdminEditUser,
+        name: 'admin-edit-user',
     },
     {
         path: '/admin/create-donate',

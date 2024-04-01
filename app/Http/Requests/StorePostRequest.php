@@ -30,7 +30,7 @@ class StorePostRequest extends FormRequest
                 return [
                     'title' => ['required', 'max:30', 'min:3'], //Rule::unique('posts')->ignore($this->title, 'title')
                     'text' => ['required', 'max:255', 'min:3'],
-                    'photo' => ['required', 'file', 'mimes:jpg,png'],
+                    'photo' => ['nullable', 'file', 'mimes:jpg,png'],
                 ];
         }
     }

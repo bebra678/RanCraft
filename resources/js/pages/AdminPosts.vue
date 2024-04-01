@@ -21,7 +21,13 @@
                 <td>{{ post.id }}</td>
                 <td>{{ post.title }}</td>
                 <td>{{ post.created_at }}</td>
-                <td>
+                <td class="admin-btns-nav-wrapper">
+                    <router-link class="admin-posts-edit" :to="'/admin/edit-post/' + post.id">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 6L8 12V16H12L18 10M14 6L17 3L21 7L18 10M14 6L18 10M10 4L4 4L4 20L20 20V14"
+                                stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </router-link>
                     <button class="admin-btn-nav" :data-id="post.id" @click="delete_post($event)">
                         <svg width="24" height="24" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                             <path fill="#000000"
@@ -119,5 +125,12 @@ tbody>tr:nth-child(2n + 1) td {
     background-color: transparent;
     padding: 0;
 
+}
+
+.admin-btns-nav-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
 }
 </style>

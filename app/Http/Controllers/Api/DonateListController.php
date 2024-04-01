@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Storage;
 
 class DonateListController extends Controller
 {
-//    public function __construct()
-//    {
-//        $this->middleware('admin')->except('index', 'show');
-//    }
+    public function __construct()
+    {
+        $this->middleware('admin')->except('index', 'show');
+    }
     public function index()
     {
         $data = DonateList::all();
@@ -48,9 +48,25 @@ class DonateListController extends Controller
         return $data;
     }
 
-    public function update(Request $request, string $id)
+    public function update(StoreDonateListRequest $request, string $id)
     {
-        //
+        $request->validated();
+        $data = DonateList::find($id);
+        if(!$data)
+        {
+            return response()->json('Такого доната не существует');
+        }
+        $data->fill($request->except(['id']));
+        if(!$request['photo'])
+        {
+            $data['photo'] = 'donate_list/donate.jpg';
+        }
+        else
+        {
+            $data['photo'] = Storage::disk('storage')->put('/donate_list', $request['photo']);
+        }
+        $data->save();
+        return response()->json($data);
     }
 
     public function destroy(string $id)
